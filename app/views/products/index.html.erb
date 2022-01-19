@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Alias</th>
+      <th>Description</th>
+      <th>Weight</th>
+      <th>Weight unit</th>
+      <th>Volume</th>
+      <th>Volume unit</th>
+      <th>Brand</th>
+      <th>Category</th>
+      <th>Upc</th>
+      <th>Plu</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.alias %></td>
+        <td><%= product.description %></td>
+        <td><%= product.weight %></td>
+        <td><%= product.weight_unit_id %></td>
+        <td><%= product.volume %></td>
+        <td><%= product.volume_unit_id %></td>
+        <td><%= product.brand_id %></td>
+        <td><%= product.category_id %></td>
+        <td><%= product.upc_id %></td>
+        <td><%= product.plu_id %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>

@@ -1,0 +1,2 @@
+class Upc < ApplicationRecord
+end

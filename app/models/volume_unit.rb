@@ -1,0 +1,2 @@
+class VolumeUnit < ApplicationRecord
+end

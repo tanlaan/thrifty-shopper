@@ -1,0 +1,2 @@
+class Plu < ApplicationRecord
+end
