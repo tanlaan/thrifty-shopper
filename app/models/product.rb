@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  has_many :prices
   belongs_to :weight_unit
   belongs_to :volume_unit
   belongs_to :brand
