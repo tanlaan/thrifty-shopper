@@ -3,7 +3,8 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    # This would be to lower the amount of queries being sent on index load, but I'm not sure it's needed?
+    @products = Product.all.includes(:brand, :category, :weight_unit, :volume_unit, :upc, :plu)
   end
 
   # GET /products/1 or /products/1.json
