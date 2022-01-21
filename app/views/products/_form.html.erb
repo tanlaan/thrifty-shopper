@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= form.label :weight_unit_id %>
-    <%= form.text_field :weight_unit_id %>
+    <%= form.collection_select :weight_unit_id, WeightUnit.all, :id, :unit, prompt: true%>
   </div>
 
   <div class="field">
@@ -43,12 +43,18 @@
 
   <div class="field">
     <%= form.label :volume_unit_id %>
-    <%= form.text_field :volume_unit_id %>
+    <%= form.collection_select :volume_unit_id, VolumeUnit.all, :id, :unit, prompt: true%>
   </div>
 
   <div class="field">
     <%= form.label :brand_id %>
-    <%= form.text_field :brand_id %>
+    <%# Add a -1 value for javascript signaling for additional field %>
+    <%= form.select :brand_id, Brand.all.order(:name).collect { |b| [b.name, b.id] } + [['Add brand', -1]], prompt: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'New Brand' %>
+    <%= form.text_field :brand %>
   </div>
 
   <div class="field">
