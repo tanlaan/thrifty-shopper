@@ -14,6 +14,9 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @product.title = params[:title] || nil
+    @product.upc = params[:upc] || nil
+    @product.plu = Plu.find_or_create_by(code: params[:plu]) || nil
   end
 
   # GET /products/1/edit
@@ -58,14 +61,85 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # POST /search?query=
+  def search
+    @query = params[:query]
+    # Blank search or accidental url input without query
+    redirect_to products_path if @query.nil? || @query == ''
 
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:title, :alias, :description, :weight, :weight_unit_id, :volume, :volume_unit_id, :brand_id, :category_id, :upc_id, :plu_id)
+    # Identify if product already created redirect_to @product
+    # or
+    # redirect_to action: 'new', upc: '012345678901'}
+
+    # Only contains digits
+    if digits?(@query)
+      # Too long to be UPC
+      redirect_to root if @query.length > 12
+
+      case @query.length
+
+      # UPC length
+      when 12
+        @product = Upc.find_by(code: @query) ? Upc.find_by(code: @query).product : nil
+        if @product
+          redirect_to @product
+        else
+          redirect_to action: 'new', upc: @query
+        end
+
+      # PLU length
+      when 4, 5
+        @product = Plu.find_by(code: @query) ? Plu.find_by(code: @query).product : nil
+        if @product
+          redirect_to @product
+        else
+          redirect_to action: 'new', plu: @query
+        end
+
+      # is fragment
+      else
+        case @query.length
+        when 6..11
+          @code = Upc.find_by('code like ?', "%#{@query}%")
+        when 1..3
+          @code = Plu.find_by('code like ?', "%#{@query}%")
+        end
+
+        @product = @code.product
+
+        if @product
+          redirect_to @product
+        else
+          # failed to find and it's an irregular PLU/UPC
+          redirect_to root
+        end
+      end
+
+    # Title search
+    else
+      @product = Product.find_by('lower(title) like ?', "%#{@query.downcase}%")
+      if @product
+        redirect_to @product
+      else
+        redirect_to action: 'new', title: @query
+      end
     end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def product_params
+    params.require(:product).permit(:title, :alias, :description, :weight, :weight_unit_id, :volume, :volume_unit_id, :brand_id, :category_id, :upc_id, :plu_id)
+  end
+
+  # Check string for only digits
+  def digits?(query)
+    query.scan(/\D/).empty?
+  end
 end
