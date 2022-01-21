@@ -77,14 +77,14 @@ class ProductsController < ApplicationController
 
     @products, @upc, @plu, @title = Product.search(@query)
 
-    if @products.length > 1
-      # Pass list of object ids to list view page?
+    if @products.empty?
+      redirect_to root_path and return if @upc.nil? && @plu.nil? && @title.nil?
+
+      redirect_to action: 'new', upc: @upc, plu: @plu, title: @title
     elsif @products.length == 1
       redirect_to @products[0]
-    elsif @upc.nil? && @plu.nil? && @title.nil?
-      redirect_to root_path
     else
-      redirect_to action: 'new', upc: @upc, plu: @plu, title: @title
+      # Pass list of object ids to list view page?
     end
   end
 
