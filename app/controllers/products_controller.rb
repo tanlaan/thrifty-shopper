@@ -21,13 +21,16 @@ class ProductsController < ApplicationController
     # to make sure they match up correctly with a product
     #
     # Do I want UPCs or PLUs that don't have a product association?
-    @product.title = params[:title] || nil
-    @product.upc = params[:upc] || nil
-    @product.plu = params[:plu] || nil
+    @title = params[:title] || nil
+    @upc = params[:upc] || nil
+    @plu = params[:plu] || nil
   end
 
   # GET /products/1/edit
   def edit
+    @title = @product.title
+    @upc = @product.upc ? @product.upc.code : nil
+    @plu = @product.plu ? @product.plu.code : nil
   end
 
   # POST /products or /products.json
@@ -73,7 +76,7 @@ class ProductsController < ApplicationController
     @query = params[:query]
 
     # Blank search or accidental url input without query
-    redirect_to products_path if @query.nil? || @query == ''
+    redirect_to products_path and return if @query.nil? || @query == ''
 
     @products, @upc, @plu, @title = Product.search(@query)
 
@@ -97,6 +100,12 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:title, :alias, :description, :weight, :weight_unit_id, :volume, :volume_unit_id, :brand_id, :category_id, :upc_id, :plu_id)
+    params.require(:product).permit(:title, :alias, :description, :weight,
+                                    :weight_unit_id, :volume, :volume_unit_id,
+                                    :brand_id, :category_id, :upc_id, :plu_id,
+                                    brand_attributes: [:name],
+                                    category_attributes: [:name],
+                                    plu_attributes: [:code],
+                                    upc_attributes: [:code])
   end
 end
