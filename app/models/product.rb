@@ -11,7 +11,31 @@ class Product < ApplicationRecord
   belongs_to :plu, optional: true
 
   # Create new brands, categories, UPC, PLU when creating new products
-  # accepts_nested_attributes_for(:brand, :category, :upc, :plu)
+  accepts_nested_attributes_for(:brand, :category, :upc, :plu)
+
+  def brand_attributes=(brand_attributes)
+    if !brand_attributes[:name].blank?
+      self.brand = Brand.find_or_create_by(name: brand_attributes[:name])
+    end
+  end
+
+  def category_attributes=(category_attributes)
+    if !category_attributes[:name].blank?
+      self.category = Category.find_or_create_by(name: category_attributes[:name])
+    end
+  end
+
+  def upc_attributes=(upc_attributes)
+    if !upc_attributes[:code].blank?
+      self.upc = Upc.find_or_create_by(code: upc_attributes[:code])
+    end
+  end
+
+  def plu_attributes=(plu_attributes)
+    if !plu_attributes[:code].blank?
+      self.plu = Plu.find_or_create_by(code: plu_attributes[:code])
+    end
+  end
 
   def self.search(query)
     products = []
