@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, value: @title %>
   </div>
 
   <div class="field">
@@ -47,29 +47,41 @@
   </div>
 
   <div class="field">
-    <%= form.label :brand_id %>
-    <%# Add a -1 value for javascript signaling for additional field %>
-    <%= form.select :brand_id, Brand.all.order(:name).collect { |b| [b.name, b.id] } + [['Add brand', -1]], prompt: true %>
+    <%= fields_for 'product[brand_attributes]' do |b| %>
+      <%= b.label :brand %>
+      <%= b.text_field :name, list: 'brands', value:  @product.brand ? @product.brand.name : '' %>
+        <datalist id='brands'>
+          <% Brand.all.each do |brand| %>
+            <option value="<%= brand.name %>">
+          <% end %>
+        </datalist>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= form.label 'New Brand' %>
-    <%= form.text_field :brand %>
+    <%= fields_for 'product[category_attributes]' do |cat| %>
+      <%= cat.label :category %>
+      <%= cat.text_field :name, list: 'categories', value: @product.category ? @product.category.name : '' %>
+        <datalist id='categories'>
+          <% Category.all.each do |category| %>
+            <option value="<%= category.name %>">
+          <% end %>
+        </datalist>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= form.label :category_id %>
-    <%= form.text_field :category_id %>
+    <%= fields_for 'product[upc_attributes]' do |upc| %>
+      <%= upc.label :upc %>
+      <%= upc.text_field :code , value: @upc %>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= form.label :upc_id %>
-    <%= form.text_field :upc_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :plu_id %>
-    <%= form.text_field :plu_id %>
+    <%= fields_for 'product[plu_attributes]' do |plu| %>
+      <%= plu.label :plu %>
+      <%= plu.text_field :code , value: @plu  %>
+    <% end %>
   </div>
 
   <div class="actions">
