@@ -1,5 +1,58 @@
+<%# barcode scanner include %>
+<script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js" integrity="sha256-JDVyLQRqvRSTL/6WaPud93JXpfEdW11zwjqhoNgkGXc=" crossorigin="anonymous"></script>
+
 <h1>Welcome To Thrifty Shopper</h1>
-<%= form_with url: search_path do |f| %>
+<%= form_with url: search_path, name: 'search_form' do |f| %>
   <%= f.search_field :query, placeholder: 'UPC/PLU/Name'%>
   <%= f.submit 'Search' %>
 <% end %>
+
+<button id='scan'>Scan UPC</button>
+
+<div id="interactive" class="viewport"></div>
+
+<script>
+var btn = document.getElementById("scan")
+btn.addEventListener('click', Barcode_Start_Scan)
+function load_Product_Page(result){
+  console.log(result.codeResult.code)
+  qry = document.getElementById('query')
+  qry.value = result.codeResult.code
+  
+  frm = document.getElementsByTagName('form')[0]
+  frm.submit()
+  
+}
+function Barcode_Start_Scan(){ 
+  Quagga.init(
+    {
+      inputStream: {
+        type: "LiveStream",
+        constraints: {
+          width: 640,
+          height: 480,
+          facingMode: "environment" // or user
+        }
+      },
+      locator: {
+        patchSize: "medium",
+        halfSample: true
+      },
+      numOfWorkers: 4,
+      decoder: {
+        readers: ["upc_reader"]
+      },
+      locate: true
+    },
+    function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log('Quagga start')
+      Quagga.start();
+    }
+  );
+  console.log('load ondetected?')
+  Quagga.onDetected(load_Product_Page);
+};
+</script>
