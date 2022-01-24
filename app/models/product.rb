@@ -47,7 +47,7 @@ class Product < ApplicationRecord
 
     # Title search
     else
-      products = Product.where('lower(title) like ?', "%#{query.downcase}%")
+      products = Product.where('lower(title) like $1', "%#{query.downcase}%")
       title = query
     end
 
@@ -58,7 +58,7 @@ class Product < ApplicationRecord
     Product.find_by_sql('SELECT products.*
                      FROM products
                      JOIN plus ON products.plu_id = plus.id
-                     WHERE code = ?
+                     WHERE code = $1
                      LIMIT 1', [plu])
   end
 
@@ -66,7 +66,7 @@ class Product < ApplicationRecord
     Product.find_by_sql('SELECT products.*
                      FROM products
                      JOIN upcs ON products.upc_id = upcs.id
-                     WHERE code = ?
+                     WHERE code = $1
                      LIMIT 1', [upc])
   end
 
@@ -74,7 +74,7 @@ class Product < ApplicationRecord
     Product.find_by_sql('SELECT products.*
                      FROM products
                      JOIN plus ON products.plu_id = plus.id
-                     WHERE code LIKE ?
+                     WHERE code LIKE $1
                      LIMIT 1', ["%#{fragment}%"])
   end
 
@@ -82,7 +82,7 @@ class Product < ApplicationRecord
     Product.find_by_sql('SELECT products.*
                      FROM products
                      JOIN upcs ON products.upc_id = upcs.id
-                     WHERE code LIKE ?
+                     WHERE code LIKE $1
                      LIMIT 1', ["%#{fragment}%"])
   end
 

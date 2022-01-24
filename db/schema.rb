@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_01_19_215140) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "brands", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -32,8 +35,8 @@ ActiveRecord::Schema.define(version: 2022_01_19_215140) do
 
   create_table "prices", force: :cascade do |t|
     t.float "price"
-    t.integer "product_id", null: false
-    t.integer "store_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "store_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_prices_on_product_id"
@@ -45,13 +48,13 @@ ActiveRecord::Schema.define(version: 2022_01_19_215140) do
     t.string "alias"
     t.string "description"
     t.float "weight"
-    t.integer "weight_unit_id"
+    t.bigint "weight_unit_id"
     t.float "volume"
-    t.integer "volume_unit_id"
-    t.integer "brand_id", null: false
-    t.integer "category_id", null: false
-    t.integer "upc_id"
-    t.integer "plu_id"
+    t.bigint "volume_unit_id"
+    t.bigint "brand_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "upc_id"
+    t.bigint "plu_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["brand_id"], name: "index_products_on_brand_id"
