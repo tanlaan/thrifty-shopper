@@ -17,13 +17,22 @@
   </div>
 
   <div class="field">
-    <%= form.label :product_id %>
-    <%= form.text_field :product_id %>
+    <%= form.label "Product" %>
+    <%= form.text_field "product", { value: @price.product.title, disabled: 'true' } %>
+    <%= form.hidden_field :product_id %>
+    <%# <%= hidden_field_tag "price[product_id]", @product.id %>
   </div>
 
   <div class="field">
-    <%= form.label :store_id %>
-    <%= form.text_field :store_id %>
+    <%= fields_for 'price[store_attributes]' do |s| %>
+      <%= s.label :store %>
+      <%= s.text_field :name, list: 'stores', value: @price.store ? @price.store.name : '' %>
+        <datalist id='stores'>
+          <% Store.all.each do |store| %>
+            <option value="<%= store.name %>">
+          <% end %>
+        </datalist>
+    <% end %>
   </div>
 
   <div class="actions">
