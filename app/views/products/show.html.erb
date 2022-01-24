@@ -57,3 +57,28 @@
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+<br />
+<%= link_to 'Add Price', new_price_path(product_id: @product.id)%>
+
+<%# Product Prices List %>
+<% %>
+<table>
+  <thead>
+    <tr>
+      <th>Price</th>
+      <th>Store</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @product.prices.limit(10).each do |price| %>
+      <tr>
+        <td><%= "$#{price.price}" %></td>
+        <td><%= price.store.name %></td>
+        <td><%= link_to 'Edit', edit_price_path(price) %></td>
+        <td><%= link_to 'Destroy', price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

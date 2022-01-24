@@ -13,10 +13,13 @@ class PricesController < ApplicationController
   # GET /prices/new
   def new
     @price = Price.new
+    @price.product = Product.find(params[:product_id])
+    # @product = Product.find(params[:product_id])
   end
 
   # GET /prices/1/edit
   def edit
+    @product = @price.product
   end
 
   # POST /prices or /prices.json
@@ -65,6 +68,6 @@ class PricesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def price_params
-      params.require(:price).permit(:price, :product_id, :store_id)
+      params.require(:price).permit(:price, :product_id, :store_id, store_attributes: [:name])
     end
 end
