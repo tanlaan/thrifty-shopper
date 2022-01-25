@@ -56,7 +56,7 @@
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<%= link_to 'View All', products_path %>
 <br />
 <%= link_to 'Add Price', new_price_path(product_id: @product.id)%>
 
@@ -72,7 +72,7 @@
   </thead>
 
   <tbody>
-    <% @product.prices.limit(10).each do |price| %>
+    <% @product.prices.limit(10).order(created_at: :desc).each do |price| %>
       <tr>
         <td><%= "$#{price.price}" %></td>
         <td><%= price.store.name %></td>

@@ -28,7 +28,7 @@ class PricesController < ApplicationController
 
     respond_to do |format|
       if @price.save
-        format.html { redirect_to price_url(@price), notice: "Price was successfully created." }
+        format.html { redirect_to product_url(@price.product), notice: "Price was successfully created." }
         format.json { render :show, status: :created, location: @price }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class PricesController < ApplicationController
   def update
     respond_to do |format|
       if @price.update(price_params)
-        format.html { redirect_to price_url(@price), notice: "Price was successfully updated." }
+        format.html { redirect_to product_url(@price.product), notice: "Price was successfully updated." }
         format.json { render :show, status: :ok, location: @price }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,10 +52,11 @@ class PricesController < ApplicationController
 
   # DELETE /prices/1 or /prices/1.json
   def destroy
+    @product = @price.product
     @price.destroy
 
     respond_to do |format|
-      format.html { redirect_to prices_url, notice: "Price was successfully destroyed." }
+      format.html { redirect_to product_url(@product), notice: "Price was successfully destroyed." }
       format.json { head :no_content }
     end
   end
