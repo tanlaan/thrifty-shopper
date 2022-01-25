@@ -13,8 +13,20 @@
 
 <script>
 var btn = document.getElementById("scan")
-btn.addEventListener('click', Barcode_Start_Scan)
-function load_Product_Page(result){
+btn.addEventListener('click', barcodeStartScan)
+function throttle(callback, limit) {
+  var waiting = false;
+  return function () {
+    if (!waiting) {
+      callback.apply(this, arguments)
+      waiting = true
+      setTimeout(function () {
+        waiting = false;
+      }, limit);
+    }
+  }
+}
+function loadProductPage(result){
   console.log(result.codeResult.code)
   qry = document.getElementById('query')
   qry.value = result.codeResult.code
@@ -23,7 +35,7 @@ function load_Product_Page(result){
   frm.submit()
   
 }
-function Barcode_Start_Scan(){ 
+function barcodeStartScan(){ 
   Quagga.init(
     {
       inputStream: {
@@ -53,6 +65,6 @@ function Barcode_Start_Scan(){
     }
   );
   console.log('load ondetected?')
-  Quagga.onDetected(load_Product_Page);
+  Quagga.onDetected(throttle(loadProductPage, 250));
 };
 </script>
