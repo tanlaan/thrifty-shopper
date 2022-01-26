@@ -1,5 +1,13 @@
-<h1>Editing Product</h1>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content">
+      <h1 class="title">Editing Product</h1>
 
-<%= render 'form', product: @product %>
+      <%= render 'form', product: @product %>
+    </div>
+    <div class="content">
+      <%= link_to 'Cancel', @product, class: 'button is-warning' %>
+    </div>
+  </div>
+</section>
 
-<%= link_to 'Cancel', @product %>

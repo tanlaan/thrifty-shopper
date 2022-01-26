@@ -1,5 +1,11 @@
-<h1>Editing Price</h1>
-
-<%= render 'form', price: @price %>
-
-<%= link_to 'Cancel', product_url(@price.product) %>
+<section class="section">
+  <div class="container">
+    <div class="content">
+      <h1>Editing Price</h1>
+      <%= render 'form', price: @price %>
+    </div>
+    <div class="content">
+      <%= link_to 'Cancel', product_url(@price.product) %>
+    </div>
+  </div>
+</section>

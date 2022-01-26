@@ -12,44 +12,44 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, value: @title %>
+    <%= form.label :title, class: 'label'%>
+    <%= form.text_field :title, value: @title, class: 'input'%>
   </div>
 
   <div class="field">
-    <%= form.label :alias %>
-    <%= form.text_field :alias %>
+    <%= form.label :alias, class: 'label' %>
+    <%= form.text_field :alias, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.label :description, class: 'label' %>
+    <%= form.text_field :description, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :weight %>
-    <%= form.text_field :weight %>
+    <%= form.label :weight, class: 'label' %>
+    <%= form.text_field :weight, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :weight_unit_id %>
-    <%= form.collection_select :weight_unit_id, WeightUnit.all, :id, :unit, prompt: true%>
+    <%= form.label :weight_unit_id, class: 'label' %>
+    <%= form.collection_select :weight_unit_id, WeightUnit.all, :id, :unit, { prompt: true },{ class: 'select' }%>
   </div>
 
   <div class="field">
-    <%= form.label :volume %>
-    <%= form.text_field :volume %>
+    <%= form.label :volume, class: 'label' %>
+    <%= form.text_field :volume, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :volume_unit_id %>
-    <%= form.collection_select :volume_unit_id, VolumeUnit.all, :id, :unit, prompt: true%>
+    <%= form.label :volume_unit_id, class: 'label' %>
+    <%= form.collection_select :volume_unit_id, VolumeUnit.all, :id, :unit, { prompt: true }, { class: 'select' }%>
   </div>
 
   <div class="field">
     <%= fields_for 'product[brand_attributes]' do |b| %>
-      <%= b.label :brand %>
-      <%= b.text_field :name, list: 'brands', value:  @product.brand ? @product.brand.name : '' %>
+      <%= b.label :brand, class: 'label' %>
+      <%= b.text_field :name, list: 'brands', value:  @product.brand ? @product.brand.name : '', class: 'input' %>
         <datalist id='brands'>
           <% Brand.all.each do |brand| %>
             <option value="<%= brand.name %>">
@@ -60,8 +60,8 @@
 
   <div class="field">
     <%= fields_for 'product[category_attributes]' do |cat| %>
-      <%= cat.label :category %>
-      <%= cat.text_field :name, list: 'categories', value: @product.category ? @product.category.name : '' %>
+      <%= cat.label :category, class: 'label' %>
+      <%= cat.text_field :name, list: 'categories', value: @product.category ? @product.category.name : '', class: 'input' %>
         <datalist id='categories'>
           <% Category.all.each do |category| %>
             <option value="<%= category.name %>">
@@ -72,19 +72,19 @@
 
   <div class="field">
     <%= fields_for 'product[upc_attributes]' do |upc| %>
-      <%= upc.label :upc %>
-      <%= upc.text_field :code , value: @upc %>
+      <%= upc.label :upc, class: 'label' %>
+      <%= upc.text_field :code , value: @upc, class: 'input' %>
     <% end %>
   </div>
 
   <div class="field">
     <%= fields_for 'product[plu_attributes]' do |plu| %>
-      <%= plu.label :plu %>
-      <%= plu.text_field :code , value: @plu  %>
+      <%= plu.label :plu, class: 'label' %>
+      <%= plu.text_field :code , value: @plu, class: 'input'  %>
     <% end %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'button is-primary' %>
   </div>
 <% end %>

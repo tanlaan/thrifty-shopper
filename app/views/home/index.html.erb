@@ -1,15 +1,20 @@
 <%# barcode scanner include %>
 <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js" integrity="sha256-JDVyLQRqvRSTL/6WaPud93JXpfEdW11zwjqhoNgkGXc=" crossorigin="anonymous"></script>
 
-<h1>Welcome To Thrifty Shopper</h1>
-<%= form_with url: search_path, name: 'search_form' do |f| %>
-  <%= f.search_field :query, placeholder: 'UPC/PLU/Name'%>
-  <%= f.submit 'Search' %>
-<% end %>
+<section class="section">
+  <div class="container is-max-desktop">
+    <h1 class="title">Welcome To Thrifty Shopper</h1>
 
-<button id='scan'>Scan UPC</button>
+    <%= form_with url: search_path, name: 'search_form', class: 'field is-grouped' do |f| %>
+      <%= f.search_field :query, { placeholder: 'UPC/PLU/Name', class: 'input' }%>
+      <%= f.submit 'Search', class: 'button is-link' %>
+    <% end %>
 
-<div id="interactive" class="viewport"></div>
+    <button id='scan' class="button is-info">Scan UPC</button>
+
+    <div id="interactive" class="viewport"></div>
+  </div>
+</section>
 
 <script>
 var btn = document.getElementById("scan")

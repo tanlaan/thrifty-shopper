@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%= form.label :price, class: 'label' %>
+    <%= form.text_field :price, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label "Product" %>
-    <%= form.text_field "product", { value: @price.product.title, disabled: 'true' } %>
+    <%= form.label "Product", class: 'label' %>
+    <%= form.text_field "product", { value: @price.product.title, disabled: 'true', class: 'input' }  %>
     <%= form.hidden_field :product_id %>
     <%# <%= hidden_field_tag "price[product_id]", @product.id %>
   </div>
 
   <div class="field">
     <%= fields_for 'price[store_attributes]' do |s| %>
-      <%= s.label :store %>
-      <%= s.text_field :name, list: 'stores', value: @price.store ? @price.store.name : '' %>
+      <%= s.label :store, class: 'label' %>
+      <%= s.text_field :name, list: 'stores', value: @price.store ? @price.store.name : '', class: 'input' %>
         <datalist id='stores'>
           <% Store.all.each do |store| %>
             <option value="<%= store.name %>">
@@ -36,6 +36,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'button is-primary' %>
   </div>
 <% end %>
