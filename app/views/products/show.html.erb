@@ -22,7 +22,7 @@
 
 <p>
   <strong>Weight unit:</strong>
-  <%= @product.weight_unit_id %>
+  <%= @product.weight ? @product.weight_unit.unit : nil %>
 </p>
 
 <p>
@@ -32,27 +32,27 @@
 
 <p>
   <strong>Volume unit:</strong>
-  <%= @product.volume_unit_id %>
+  <%= @product.volume ? @product.volume_unit.unit : nil %>
 </p>
 
 <p>
   <strong>Brand:</strong>
-  <%= @product.brand_id %>
+  <%= @product.brand.name %>
 </p>
 
 <p>
   <strong>Category:</strong>
-  <%= @product.category_id %>
+  <%= @product.category.name %>
 </p>
 
 <p>
   <strong>Upc:</strong>
-  <%= @product.upc_id %>
+  <%= @product.upc_id ? @product.upc.code : nil %>
 </p>
 
 <p>
   <strong>Plu:</strong>
-  <%= @product.plu_id %>
+  <%= @product.plu_id ? @product.plu.code : nil%>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
