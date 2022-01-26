@@ -47,7 +47,7 @@ class Product < ApplicationRecord
 
     # Title search
     else
-      products = Product.where('lower(title) like $1', "%#{query.downcase}%")
+      products = Product.where('lower(title) like ?', "%#{query.downcase}%")
       title = query
     end
 
