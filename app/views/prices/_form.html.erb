@@ -26,7 +26,7 @@
   <div class="field">
     <%= fields_for 'price[store_attributes]' do |s| %>
       <%= s.label :store, class: 'label' %>
-      <%= s.text_field :name, list: 'stores', value: @price.store ? @price.store.name : '', class: 'input' %>
+      <%= s.text_field :name, list: 'stores', value: @price.store ? @price.store.name : '', class: 'input', autocomplete: 'false' %>
         <datalist id='stores'>
           <% Store.all.each do |store| %>
             <option value="<%= store.name %>">

@@ -49,7 +49,7 @@
   <div class="field">
     <%= fields_for 'product[brand_attributes]' do |b| %>
       <%= b.label :brand, class: 'label' %>
-      <%= b.text_field :name, list: 'brands', value:  @product.brand ? @product.brand.name : '', class: 'input' %>
+      <%= b.text_field :name, list: 'brands', value:  @product.brand ? @product.brand.name : '', class: 'input', autocomplete: 'false' %>
         <datalist id='brands'>
           <% Brand.all.each do |brand| %>
             <option value="<%= brand.name %>">
@@ -61,7 +61,7 @@
   <div class="field">
     <%= fields_for 'product[category_attributes]' do |cat| %>
       <%= cat.label :category, class: 'label' %>
-      <%= cat.text_field :name, list: 'categories', value: @product.category ? @product.category.name : '', class: 'input' %>
+      <%= cat.text_field :name, list: 'categories', value: @product.category ? @product.category.name : '', class: 'input', autocomplete: 'false' %>
         <datalist id='categories'>
           <% Category.all.each do |category| %>
             <option value="<%= category.name %>">
