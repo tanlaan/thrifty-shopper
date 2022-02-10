@@ -1,24 +1,27 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## FAQ
 
-Things you may want to cover:
+#### What is this for?
 
-* Ruby version
+Getting pricing information for essentials shopping without dealing with spreadsheets.
 
-* System dependencies
+#### How does it do that?
 
-* Configuration
+Scanning UPC codes or manually entering PLU/UPC codes and inputting prices and stores.
 
-* Database creation
+#### Is it finished?
 
-* Database initialization
+Absolutely not! I've got the skeleton functionality, but I plan on fleshing it out in the near future.
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Installation
 
-* Deployment instructions
+Install thrifty-shopper using the following commands:
 
-* ...
+```
+  git clone https://github.com/tanlaan/thrifty-shopper.git
+  bundle Install
+  yarn Install
+  rails s
+```
+    
