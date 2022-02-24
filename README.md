@@ -1,3 +1,6 @@
+## Check it out
+
+[Here](https://thrifty-shopper.herokuapp.com/)
 
 ## FAQ
 
