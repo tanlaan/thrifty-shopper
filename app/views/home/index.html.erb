@@ -2,20 +2,22 @@
 <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js" integrity="sha256-JDVyLQRqvRSTL/6WaPud93JXpfEdW11zwjqhoNgkGXc=" crossorigin="anonymous"></script>
 
 <div class="hero">
-  <div class="hero-body">
-    <h1 class="title">Welcome To Thrifty&nbsp;Shopper</h1>
+  <div class="hero-body has-text-centered">
+    <h1 class="title">What's The Market&nbsp;Price?</h1>
 
     <%= form_with url: search_path, name: 'search_form', class: 'field is-grouped' do |f| %>
-      <%= f.search_field :query, { placeholder: 'UPC/PLU/Name', class: 'input m-1' }%>
-      <%= f.submit 'Search', class: 'button is-link m-1' %>
+      <%= f.search_field :query, { placeholder: 'UPC/PLU/Name', class: 'input is-medium m-2' }%>
+      <%= f.submit 'Search', class: 'button is-link is-medium m-2' %>
     <% end %>
 
-    <div class="buttons is-centered">
-      <button id='scan' class="button is-primary is-centered is-large is-hidden-desktop is-hidden-widescreen">Scan UPC</button>
-    </div>
-    <div id="interactive" class="viewport"></div>
   </div>
 </div>
+<section>
+  <div class="buttons is-centered">
+    <button id='scan' class="button is-primary is-centered is-large is-hidden-desktop is-hidden-widescreen">Scan UPC</button>
+  </div>
+  <div id="interactive" class="viewport"></div>
+</section>
 
 <script>
 var btn = document.getElementById("scan")

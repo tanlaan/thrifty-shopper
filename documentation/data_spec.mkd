@@ -1,0 +1,51 @@
+# Data Specifications
+
+## Product
+
+Local
+
+- Name
+- Description
+- Magnitude
+
+External
+- Brand
+- Code
+- Unit
+
+Has Many
+
+- Prices
+- Categories
+
+----
+## Store
+
+Local
+- Name
+
+----
+## Unit
+
+Local
+- Name
+
+----
+## Code
+
+Local
+- Number
+
+----
+## Price
+Local
+- Number
+
+External
+- Product
+- Store
+
+----
+## Category
+Local
+- Name
