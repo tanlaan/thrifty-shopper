@@ -6,7 +6,7 @@
     <h1 class="title">What's The Market&nbsp;Price?</h1>
 
     <%= form_with url: search_path, name: 'search_form', class: 'field is-grouped' do |f| %>
-      <%= f.search_field :query, { placeholder: 'UPC/PLU/Name', class: 'input is-medium m-2' }%>
+      <%= f.search_field :query, { placeholder: 'UPC/PLU/Name', class: 'input is-medium m-2', autofocus: 'autofocus' }%>
       <%= f.submit 'Search', class: 'button is-link is-medium m-2' %>
     <% end %>
 
