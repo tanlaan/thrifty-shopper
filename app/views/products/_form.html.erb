@@ -12,13 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title, class: 'label'%>
-    <%= form.text_field :title, value: @title, class: 'input'%>
+    <%= fields_for 'product[upc_attributes]' do |upc| %>
+      <%= upc.label :upc, class: 'label' %>
+      <%= upc.text_field :code , value: @upc, class: 'input' %>
+    <% end %>
   </div>
-
+  
   <div class="field">
-    <%= form.label :alias, class: 'label' %>
-    <%= form.text_field :alias, class: 'input' %>
+    <%= form.label :name, class: 'label'%>
+    <%= form.text_field :name, value: @name, class: 'input'%>
   </div>
 
   <div class="field">
@@ -26,24 +28,16 @@
     <%= form.text_field :description, class: 'input' %>
   </div>
 
-  <div class="field">
-    <%= form.label :weight, class: 'label' %>
-    <%= form.text_field :weight, class: 'input' %>
-  </div>
+  <div class="field is-grouped">
+    <div class="control is-expanded">
+      <%= form.label :magnitude, class: 'label' %>
+      <%= form.text_field :magnitude, class: 'input' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :weight_unit_id, class: 'label' %>
-    <%= form.collection_select :weight_unit_id, WeightUnit.all, :id, :unit, { prompt: true },{ class: 'select' }%>
-  </div>
-
-  <div class="field">
-    <%= form.label :volume, class: 'label' %>
-    <%= form.text_field :volume, class: 'input' %>
-  </div>
-
-  <div class="field">
-    <%= form.label :volume_unit_id, class: 'label' %>
-    <%= form.collection_select :volume_unit_id, VolumeUnit.all, :id, :unit, { prompt: true }, { class: 'select' }%>
+    <div class="control select">
+      <%= form.label :unit_id, class: 'label' %>
+      <%= form.collection_select :unit_id, Unit.all, :id, :unit, { prompt: true },{ class: 'select' }%>
+    </div>
   </div>
 
   <div class="field">
@@ -61,26 +55,14 @@
   <div class="field">
     <%= fields_for 'product[category_attributes]' do |cat| %>
       <%= cat.label :category, class: 'label' %>
-      <%= cat.text_field :name, list: 'categories', value: @product.category ? @product.category.name : '', class: 'input', autocomplete: 'false' %>
+      <%= cat.text_field :list, list: 'categories',
+       value: @categories, 
+       class: 'input', autocomplete: 'false' %>
         <datalist id='categories'>
           <% Category.all.each do |category| %>
             <option value="<%= category.name %>">
           <% end %>
         </datalist>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= fields_for 'product[upc_attributes]' do |upc| %>
-      <%= upc.label :upc, class: 'label' %>
-      <%= upc.text_field :code , value: @upc, class: 'input' %>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= fields_for 'product[plu_attributes]' do |plu| %>
-      <%= plu.label :plu, class: 'label' %>
-      <%= plu.text_field :code , value: @plu, class: 'input'  %>
     <% end %>
   </div>
 

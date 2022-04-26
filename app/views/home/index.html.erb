@@ -1,6 +1,5 @@
 <%# barcode scanner include %>
 <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js" integrity="sha256-JDVyLQRqvRSTL/6WaPud93JXpfEdW11zwjqhoNgkGXc=" crossorigin="anonymous"></script>
-<%= javascript_pack_tag 'scanner', 'data-turbolinks-track': 'reload' %>
 
 <div class="hero">
   <div class="hero-body has-text-centered">
@@ -35,3 +34,6 @@
     </section>
   </div>
 </div>
+
+<%# barcode scanner button & modal set up %>
+<%= javascript_pack_tag 'scanner', 'data-turbolinks-track': 'reload' %>

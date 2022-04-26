@@ -15,12 +15,8 @@
           </header>
           <div class="card-content">
             <p>
-              <strong>Title:</strong>
-              <%= @product.title %>
-            </p>
-            <p>
-              <strong>Alias:</strong>
-              <%= @product.alias %>
+              <strong>Name:</strong>
+              <%= @product.name %>
             </p>
 
             <p>
@@ -29,23 +25,13 @@
             </p>
 
             <p>
-              <strong>Weight:</strong>
-              <%= @product.weight %>
+              <strong>Magnitude:</strong>
+              <%= @product.magnitude %>
             </p>
 
             <p>
-              <strong>Weight unit:</strong>
-              <%= @product.weight ? @product.weight_unit.unit : nil %>
-            </p>
-
-            <p>
-              <strong>Volume:</strong>
-              <%= @product.volume %>
-            </p>
-
-            <p>
-              <strong>Volume unit:</strong>
-              <%= @product.volume ? @product.volume_unit.unit : nil %>
+              <strong>Unit:</strong>
+              <%= @product.unit ? @product.unit.unit : nil %>
             </p>
 
             <p>
@@ -55,17 +41,12 @@
 
             <p>
               <strong>Category:</strong>
-              <%= @product.category.name %>
+              <%= @categories %>
             </p>
 
             <p>
               <strong>Upc:</strong>
               <%= @product.upc_id ? @product.upc.code : nil %>
-            </p>
-
-            <p>
-              <strong>Plu:</strong>
-              <%= @product.plu_id ? @product.plu.code : nil%>
             </p>
           </div>
           <div class="card-footer">

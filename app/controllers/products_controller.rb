@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     # This would be to lower the amount of queries being sent on index load, but I'm not sure it's needed?
-    @products = Product.all.includes(:brand, :category, :weight_unit, :volume_unit, :upc, :plu)
+    @products = Product.all.includes(:brand, :categories, :unit, :upc)
   end
 
   # GET /products/1 or /products/1.json
@@ -21,16 +21,14 @@ class ProductsController < ApplicationController
     # to make sure they match up correctly with a product
     #
     # Do I want UPCs or PLUs that don't have a product association?
-    @title = params[:title] || nil
+    @name = params[:name] || nil
     @upc = params[:upc] || nil
-    @plu = params[:plu] || nil
   end
 
   # GET /products/1/edit
   def edit
-    @title = @product.title
+    @name = @product.name
     @upc = @product.upc ? @product.upc.code : nil
-    @plu = @product.plu ? @product.plu.code : nil
   end
 
   # POST /products or /products.json
@@ -78,12 +76,12 @@ class ProductsController < ApplicationController
     # Blank search or accidental url input without query
     redirect_to products_path and return if @query.nil? || @query == ''
 
-    @products, @upc, @plu, @title = Product.search(@query)
+    @products, @upc, @name = Product.search(@query)
 
     if @products.empty?
-      redirect_to root_path and return if @upc.nil? && @plu.nil? && @title.nil?
+      redirect_to root_path and return if @upc.nil? && @name.nil?
 
-      redirect_to action: 'new', upc: @upc, plu: @plu, title: @title
+      redirect_to action: 'new', upc: @upc, name: @name
     elsif @products.length == 1
       redirect_to @products[0]
     else
@@ -96,16 +94,15 @@ class ProductsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_product
     @product = Product.find(params[:id])
+    @categories = !@product.categories.empty? ? @product.categories.map(&:name).join(', ') : ''
   end
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:title, :alias, :description, :weight,
-                                    :weight_unit_id, :volume, :volume_unit_id,
-                                    :brand_id, :category_id, :upc_id, :plu_id,
+    params.require(:product).permit(:name, :description, :magnitude,
+                                    :unit_id, :brand_id, :upc_id,
                                     brand_attributes: [:name],
-                                    category_attributes: [:name],
-                                    plu_attributes: [:code],
+                                    category_attributes: [:list],
                                     upc_attributes: [:code])
   end
 end

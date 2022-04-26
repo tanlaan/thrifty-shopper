@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label "Product", class: 'label' %>
-    <%= form.text_field "product", { value: @price.product.title, disabled: 'true', class: 'input' }  %>
+    <%= form.text_field "product", { value: @price.product.name, disabled: 'true', class: 'input' }  %>
     <%= form.hidden_field :product_id %>
     <%# <%= hidden_field_tag "price[product_id]", @product.id %>
   </div>

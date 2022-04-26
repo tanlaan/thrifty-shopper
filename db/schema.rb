@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_19_215140) do
+ActiveRecord::Schema.define(version: 2022_04_25_181356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,12 +27,6 @@ ActiveRecord::Schema.define(version: 2022_01_19_215140) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "plus", force: :cascade do |t|
-    t.string "code"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "prices", force: :cascade do |t|
     t.float "price"
     t.bigint "product_id", null: false
@@ -43,30 +37,37 @@ ActiveRecord::Schema.define(version: 2022_01_19_215140) do
     t.index ["store_id"], name: "index_prices_on_store_id"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "title"
-    t.string "alias"
-    t.string "description"
-    t.float "weight"
-    t.bigint "weight_unit_id"
-    t.float "volume"
-    t.bigint "volume_unit_id"
-    t.bigint "brand_id", null: false
+  create_table "product_categories", force: :cascade do |t|
+    t.bigint "product_id", null: false
     t.bigint "category_id", null: false
-    t.bigint "upc_id"
-    t.bigint "plu_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_product_categories_on_category_id"
+    t.index ["product_id"], name: "index_product_categories_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.bigint "brand_id", null: false
+    t.bigint "upc_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "magnitude", null: false
+    t.bigint "unit_id", null: false
     t.index ["brand_id"], name: "index_products_on_brand_id"
-    t.index ["category_id"], name: "index_products_on_category_id"
-    t.index ["plu_id"], name: "index_products_on_plu_id"
+    t.index ["unit_id"], name: "index_products_on_unit_id"
     t.index ["upc_id"], name: "index_products_on_upc_id"
-    t.index ["volume_unit_id"], name: "index_products_on_volume_unit_id"
-    t.index ["weight_unit_id"], name: "index_products_on_weight_unit_id"
   end
 
   create_table "stores", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -77,24 +78,11 @@ ActiveRecord::Schema.define(version: 2022_01_19_215140) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "volume_units", force: :cascade do |t|
-    t.string "unit"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "weight_units", force: :cascade do |t|
-    t.string "unit"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   add_foreign_key "prices", "products"
   add_foreign_key "prices", "stores"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
   add_foreign_key "products", "brands"
-  add_foreign_key "products", "categories"
-  add_foreign_key "products", "plus"
+  add_foreign_key "products", "units"
   add_foreign_key "products", "upcs"
-  add_foreign_key "products", "volume_units"
-  add_foreign_key "products", "weight_units"
 end
