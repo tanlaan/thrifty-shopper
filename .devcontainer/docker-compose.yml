@@ -16,7 +16,7 @@ services:
     volumes:
       - ..:/workspace:cached
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
