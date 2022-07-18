@@ -6,15 +6,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <div class="section m-0 p-0">
       <div class="container">
         <div class="columns">
-          <div class="column is-9 is-offset-1">
+          <div class="column is-8 is-offset-2">
+
             <nav class="navbar" role='navigation' aria-label='main navigation'>
               <div class="navbar-brand">
                 <%= link_to 'Thrifty Shopper', root_path, { class: 'navbar-item has-text-weight-bold'  }%>
@@ -40,17 +41,13 @@
                 </div>
               </div>
             </nav>
-          </div>
-        </div> 
-      </div>
-    </div>
-    <div class="section main-content m-0 p-0" >
-      <div class="container ">
-        <div class="columns">
-          <div class="column is-9 is-offset-1">
+
+          <div class="section main-content m-0 p-0" >
             <%= yield %>
           </div>
-        </div>
+
+          </div>
+        </div> 
       </div>
     </div>
     <script>
