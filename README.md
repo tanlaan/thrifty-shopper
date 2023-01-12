@@ -1,6 +1,6 @@
 ## Check it out
 
-[Here](https://thrifty-shopper.herokuapp.com/)
+[Here](https://thrifty.smol.tk/)
 
 ## FAQ
 
